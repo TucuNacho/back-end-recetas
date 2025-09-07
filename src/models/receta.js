@@ -6,11 +6,11 @@ const recetas = new Schema({
     required: true,
     minLength: 3,
     maxLength: 50,
-    unique:true
+    unique: true,
   },
   imagen: {
     type: String,
-    require: true,
+    required: true,
     validate: {
       validator: (valor) => {
         return /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?(\.(jpg|jpeg|png|webp))$/.test(
@@ -24,20 +24,34 @@ const recetas = new Schema({
     required: true,
     enum: ["Carne y pollo", "Bebidas", "Postres", "Ensaladas", "Otros..."],
   },
-  descripcion_breve:{
+  descripcion_breve: {
     type: String,
-    required:true,
-    minLength:5,
-    maxLength:100
+    required: true,
+    minLength: 5,
+    maxLength: 100,
   },
-    descripcion_amplia:{
+  descripcion_amplia: {
     type: String,
-    required:true,
-    minLength:10,
-    maxLength:500
-  }
+    required: true,
+    minLength: 10,
+    maxLength: 500,
+  },
+  ingredientes: {
+    type: [String],
+    required: true,
+    validate: {
+      validator: (array) => array.length > 0,
+      message: "Debe tener al menos un ingrediente",
+    },
+  },
+  metodoPreparacion: {
+    type: String,
+    required: true,
+    minLength: 10,
+    maxLength: 1000,
+  },
 });
 
-const Receta = mongoose.model("receta", recetas)
+const Receta = mongoose.model("receta", recetas);
 
-export default Receta
+export default Receta;
