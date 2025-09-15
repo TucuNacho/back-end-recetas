@@ -7,13 +7,14 @@ import {
   obtenerRecetaPorId,
 } from "../controllers/receta.controllers.js";
 import validarRecetas from "../../middlewares/validarProducto.js";
+import verificarJWT from "../../middlewares/verificarJTW.js";
 
 const router = Router();
 
 export default router;
-router.route("/").post(validarRecetas, crearReceta).get(leerReceta);
+router.route("/").post([verificarJWT,validarRecetas], crearReceta).get(leerReceta);
 router
   .route("/:id")
-  .delete(borrarReceta)
+  .delete(verificarJWT,borrarReceta)
   .get(obtenerRecetaPorId)
-  .put(validarRecetas, editarReceta);
+  .put([verificarJWT,validarRecetas], editarReceta);

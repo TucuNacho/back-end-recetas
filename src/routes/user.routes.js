@@ -5,6 +5,7 @@ import {
   editarUsuario,
   leerUserPorId,
   leerUsuario,
+  loginUsuario
 } from "../controllers/user.controllers.js";
 import validacionUsuario from "../../middlewares/validarUsuario.js";
 const router = Router();
@@ -14,5 +15,5 @@ router
   .get(leerUserPorId)
   .delete(borrarUsuario)
   .put(validacionUsuario, editarUsuario);
-
+router.route("/login").post(loginUsuario);
 export default router;
